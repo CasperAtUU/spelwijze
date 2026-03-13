@@ -166,11 +166,12 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
       <div class="logo-bee" aria-hidden="true">S</div>
       <div class="brand-copy">
         <div class="logo">Spelwijze</div>
-        <div class="brand-sub">Elke dag één puzzel. Rustig zoeken, slim combineren.</div>
-        <div class="brand-meta"><span id="header-daily"><strong>Dagpuzzel</strong><span id="header-daily-date">vandaag</span></span></div>
+        <div class="brand-sub" id="brand-sub">Elke dag één puzzel. Rustig zoeken, slim combineren.</div>
+        <div class="brand-meta"><span id="header-daily"><strong id="header-mode-title">Dagpuzzel</strong><span id="header-daily-date">vandaag</span></span></div>
       </div>
     </div>
     <div class="header-right">
+      <button id="btn-mode" class="btn-ghost" type="button">Vrij spel</button>
       <button id="btn-help" class="btn-ghost" type="button">Spelregels</button>
       <button id="btn-giveup" class="btn-ghost" type="button">Ik geef het op</button>
       <button id="btn-new" class="btn-ghost" type="button">Opnieuw</button>
@@ -184,7 +185,7 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
       </div>
       <div id="next-hint"></div>
       <div id="word-progress" aria-live="polite"><strong id="word-progress-num">0 van 0 woorden</strong><span id="word-progress-left">Nog 0 te vinden</span></div>
-      <div id="score-actions"><span id="daily-label"><strong>Vandaag</strong><span id="daily-label-date">dagpuzzel</span></span><button id="btn-share" class="btn-ghost" type="button">Deel resultaat</button></div>
+      <div id="score-actions"><span id="daily-label"><strong id="score-mode-title">Vandaag</strong><span id="daily-label-date">dagpuzzel</span></span><button id="btn-share" class="btn-ghost" type="button">Deel resultaat</button></div>
       <div id="progress-wrap" aria-hidden="true"><div id="progress-fill"></div></div>
       <div id="level-dots" aria-hidden="true"></div>
     </div>
