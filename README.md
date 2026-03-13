@@ -1,6 +1,6 @@
 # Spelwijze
 
-Een webimplementatie van het Nederlandse woordspel **Spelwijze**, geïnspireerd door de puzzel uit de Volkskrant.
+Een webimplementatie van het Nederlandse woordspel **Spelwijze**, geïnspireerd door de puzzel uit de Volkskrant. Met enkele verbeteringen (zoals de ij die je gewoon als i en j kunt typen hier).
 
 Speel hier:  
 https://casperatuu.github.io/spelwijze
