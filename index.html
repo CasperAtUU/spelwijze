@@ -23,10 +23,17 @@ body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;mi
 button:focus-visible,[role="button"]:focus-visible{outline:3px solid rgba(232,147,10,.35);outline-offset:3px}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 #app{max-width:920px;margin:0 auto;padding:0 20px 40px;display:grid;grid-template-columns:1fr 300px;grid-template-rows:auto auto;gap:0 28px}
-header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:20px 0 18px;border-bottom:1.5px solid var(--cream3);margin-bottom:28px}
+header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:space-between;padding:20px 0 18px;border-bottom:1.5px solid var(--cream3);margin-bottom:28px;gap:18px}
+.brand{display:flex;align-items:center;gap:14px}
 .logo{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:700;color:var(--ink);letter-spacing:-0.5px;display:flex;align-items:center;gap:10px}
 .logo-bee{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--amber);border-radius:50%;font-size:1.2rem;box-shadow:0 2px 8px rgba(232,147,10,0.35)}
-.header-right{display:flex;align-items:center;gap:10px}
+.brand-copy{display:flex;flex-direction:column;gap:3px}
+.brand-sub{font-size:12px;color:var(--ink-faint);letter-spacing:.2px}
+.brand-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:2px}
+#header-daily{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--cream3);border-radius:999px;background:rgba(255,255,255,.72);font-size:12px;color:var(--ink-soft);box-shadow:0 6px 18px rgba(44,31,14,.05)}
+#header-daily strong{color:var(--ink);font-weight:600}
+#header-daily::before{content:'Vandaag';display:inline-flex;align-items:center;justify-content:center;padding:2px 7px;border-radius:999px;background:rgba(232,147,10,.12);color:var(--amber);font-size:11px;font-weight:700;letter-spacing:.15px}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .btn-ghost{background:transparent;border:1.5px solid var(--cream3);color:var(--ink-soft);padding:7px 16px;border-radius:24px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;transition:all .18s;letter-spacing:0.2px}
 .btn-ghost:hover{border-color:var(--amber);color:var(--amber);background:rgba(232,147,10,0.05)}
 #game-col{display:flex;flex-direction:column;align-items:center;gap:0}
@@ -40,7 +47,8 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
 #word-progress strong{font-size:13px;color:var(--ink);font-weight:600}
 #word-progress span{font-size:11.5px;color:var(--ink-faint)}
 #score-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 8px}
-#daily-label{font-size:11.5px;color:var(--ink-faint)}
+#daily-label{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--cream3);background:rgba(255,255,255,.72);font-size:12px;color:var(--ink-soft)}
+#daily-label strong{color:var(--ink);font-weight:600}
 #share-preview{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;padding:12px 14px;border:1px solid var(--cream3);border-radius:12px;background:rgba(255,255,255,.7);margin-top:8px}
 #share-note{margin-top:10px;font-size:12px;color:var(--ink-faint)}
 #solution-list{max-height:min(55vh,460px);overflow:auto;border:1px solid var(--cream3);border-radius:14px;background:rgba(255,255,255,.72);padding:8px}
@@ -141,7 +149,7 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
   #score-actions{flex-direction:column;align-items:stretch}
   #score-actions .btn-ghost{width:100%}
   #app{grid-template-columns:1fr;padding:0 14px 32px;gap:0}
-  header{margin-bottom:20px}.logo{font-size:1.6rem}
+  header{margin-bottom:20px;align-items:stretch}.brand{align-items:flex-start}.logo{font-size:1.6rem}.brand-meta{flex-direction:column;align-items:flex-start;gap:8px}.header-right{justify-content:stretch}
   #found-panel{position:static;max-height:220px;margin-top:24px}
   #hc-wrap{width:270px;height:250px}
   #input-letters{font-size:2rem}
@@ -154,11 +162,18 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
 <div id="modal-overlay" aria-hidden="true"><div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-h" tabindex="-1"><h2 id="modal-h"></h2><div id="modal-b"></div><div class="modal-btns" id="modal-btns"></div></div></div>
 <div id="app">
   <header>
-    <div class="logo"><div class="logo-bee" aria-hidden="true">🐝</div>Spelwijze</div>
+    <div class="brand">
+      <div class="logo-bee" aria-hidden="true">S</div>
+      <div class="brand-copy">
+        <div class="logo">Spelwijze</div>
+        <div class="brand-sub">Elke dag één puzzel. Rustig zoeken, slim combineren.</div>
+        <div class="brand-meta"><span id="header-daily"><strong>Dagpuzzel</strong><span id="header-daily-date">vandaag</span></span></div>
+      </div>
+    </div>
     <div class="header-right">
       <button id="btn-help" class="btn-ghost" type="button">Spelregels</button>
       <button id="btn-giveup" class="btn-ghost" type="button">Ik geef het op</button>
-      <button id="btn-new" class="btn-ghost" type="button">↻ Opnieuw</button>
+      <button id="btn-new" class="btn-ghost" type="button">Opnieuw</button>
     </div>
   </header>
   <div id="game-col">
@@ -169,7 +184,7 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
       </div>
       <div id="next-hint"></div>
       <div id="word-progress" aria-live="polite"><strong id="word-progress-num">0 van 0 woorden</strong><span id="word-progress-left">Nog 0 te vinden</span></div>
-      <div id="score-actions"><span id="daily-label">Dagpuzzel</span><button id="btn-share" class="btn-ghost" type="button">↗ Deel</button></div>
+      <div id="score-actions"><span id="daily-label"><strong>Vandaag</strong><span id="daily-label-date">dagpuzzel</span></span><button id="btn-share" class="btn-ghost" type="button">Deel resultaat</button></div>
       <div id="progress-wrap" aria-hidden="true"><div id="progress-fill"></div></div>
       <div id="level-dots" aria-hidden="true"></div>
     </div>
@@ -337,7 +352,7 @@ function currentSaveKey(){
   return 'sw7-' + todayId();
 }
 function formatDailyLabel(){
-  return new Date(todayId() + 'T00:00:00').toLocaleDateString('nl-NL', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+  return new Date(todayId() + 'T00:00:00').toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 }
 
 const G = (() => {
@@ -537,6 +552,18 @@ function renderInp(){
   }
 }
 
+function applyModeUI(){
+  const vrij = G.mode===MODE_FREE;
+  const dagTekst = formatDailyLabel();
+  if(dom.headerModeTitle) dom.headerModeTitle.textContent = vrij ? 'Vrij spel' : 'Dagpuzzel';
+  if(dom.scoreModeTitle) dom.scoreModeTitle.textContent = vrij ? 'Vrij spel' : 'Vandaag';
+  if(dom.headerDailyDate) dom.headerDailyDate.textContent = vrij ? 'willekeurige puzzel' : dagTekst;
+  if(dom.dailyLabelDate) dom.dailyLabelDate.textContent = vrij ? 'willekeurige puzzel' : dagTekst;
+  if(dom.brandSub) dom.brandSub.textContent = vrij ? 'Vrij spelen met een losse puzzel. Teruggaan wist je vrije spel.' : 'Elke dag één puzzel. Rustig zoeken, slim combineren.';
+  dom.btnMode.textContent = vrij ? 'Terug naar dagpuzzel' : 'Vrij spel';
+  dom.btnShare.hidden = vrij;
+}
+
 function renderScore(){
   const r=G.max>0?G.score/G.max:0;
   dom.scoreNum.textContent=G.score;
@@ -551,9 +578,9 @@ function renderScore(){
   const gevonden = G.gev.length;
   dom.wordProgressNum.textContent = gevonden + ' van ' + totaal + ' woorden';
   dom.wordProgressLeft.textContent = G.opgegeven ? 'Oplossing getoond' : (gevonden===totaal ? 'Alles gevonden' : 'Nog ' + (totaal-gevonden) + ' te vinden');
-  dom.dailyLabel.textContent = 'Dagpuzzel · ' + formatDailyLabel();
   dom.btnGiveup.disabled = G.opgegeven;
   dom.btnGiveup.textContent = G.opgegeven ? 'Oplossing bekeken' : 'Ik geef het op';
+  applyModeUI();
   while (dom.levelDots.firstChild) dom.levelDots.removeChild(dom.levelDots.firstChild);
   NIV.forEach(n=>{
     const el=document.createElement('div'); el.className='ldot'; el.setAttribute('data-tip',n.n);
@@ -720,6 +747,7 @@ function buildShareContent(){
   return frag;
 }
 function openShare(){
+  if(G.mode===MODE_FREE){ return; }
   const btns = [
     {t:'📋 Kopieer',f:()=>{copyShareText();}},
     {t:'🟢 WhatsApp',f:()=>{shareWhatsApp();}},
@@ -806,7 +834,7 @@ function openHelp(){
 function confirmNew(){
   openModal('Opnieuw beginnen?', ()=>{
     const frag=document.createDocumentFragment();
-    frag.appendChild(makeEl('p','Je begint opnieuw met de dagpuzzel van vandaag.'));
+    frag.appendChild(makeEl('p', G.mode===MODE_FREE ? 'Je begint opnieuw met een nieuwe puzzel in vrij spel.' : 'Je begint opnieuw met de dagpuzzel van vandaag.'));
     frag.appendChild(makeEl('p','Huidige voortgang gaat verloren.'));
     return frag;
   }, [{t:'Annuleren'},{t:'Ja, opnieuw beginnen',p:true,f:startNew}]);
@@ -814,12 +842,53 @@ function confirmNew(){
 
 function startNew(){
   document.activeElement?.blur?.();
-  G.wis();
+  G.wis(G.mode);
   dom.loader.classList.remove('gone');
   dom.loader.setAttribute('aria-busy','true');
-  dom.loaderMsg.textContent='Dagpuzzel laden…';
+  dom.loaderMsg.textContent = G.mode===MODE_FREE ? 'Vrij spel laden…' : 'Dagpuzzel laden…';
   setTimeout(()=>{
-    if(!G.genereer()){
+    if(!G.genereer(G.mode)){
+      dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
+      return;
+    }
+    buildHC(); renderInp(); renderScore(); renderGev();
+    dom.loader.classList.add('gone');
+    dom.inputArea.focus({preventScroll:true});
+    dom.loader.setAttribute('aria-busy','false');
+  },60);
+}
+
+function toggleMode(){
+  if(G.mode===MODE_FREE){
+    openModal('Terug naar dagpuzzel?', ()=>{
+      const frag=document.createDocumentFragment();
+      frag.appendChild(makeEl('p','Je vrije spel wordt dan weggegooid.'));
+      frag.appendChild(makeEl('p','Daarna laad je weer de dagpuzzel van vandaag.'));
+      return frag;
+    }, [{t:'Annuleren'},{t:'Terug naar dagpuzzel',p:true,f:()=>{
+      document.activeElement?.blur?.();
+      dom.loader.classList.remove('gone');
+      dom.loader.setAttribute('aria-busy','true');
+      dom.loaderMsg.textContent='Dagpuzzel laden…';
+      setTimeout(()=>{
+        if(!G.switchMode(MODE_DAILY)){
+          dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
+          return;
+        }
+        buildHC(); renderInp(); renderScore(); renderGev();
+        dom.loader.classList.add('gone');
+        dom.inputArea.focus({preventScroll:true});
+        dom.loader.setAttribute('aria-busy','false');
+      },60);
+    }}]);
+    return;
+  }
+  document.activeElement?.blur?.();
+  dom.loader.classList.remove('gone');
+  dom.loader.setAttribute('aria-busy','true');
+  dom.loaderMsg.textContent='Vrij spel laden…';
+  setTimeout(()=>{
+    if(!G.switchMode(MODE_FREE)){
       dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
       return;
     }
@@ -831,6 +900,7 @@ function startNew(){
 }
 
 function bindEvents(){
+  dom.btnMode.addEventListener('click', toggleMode);
   dom.btnHelp.addEventListener('click', openHelp);
   dom.btnShare.addEventListener('click', openShare);
   dom.btnGiveup.addEventListener('click', geefOp);
@@ -877,8 +947,8 @@ function cacheDom(){
     loader:$('loader'), loaderMsg:$('loader-msg'),
     levelUp:$('level-up-banner'), levelUpEmoji:$('lu-emoji'), levelUpName:$('lu-name'),
     modalOverlay:$('modal-overlay'), modal:$('modal'), modalTitle:$('modal-h'), modalBody:$('modal-b'), modalBtns:$('modal-btns'),
-    btnHelp:$('btn-help'), btnShare:$('btn-share'), btnGiveup:$('btn-giveup'), btnNew:$('btn-new'), btnDel:$('btn-del'), btnShuffle:$('btn-shuffle'), btnSubmit:$('btn-submit'),
-    scoreNum:$('score-num'), levelName:$('level-name'), nextHint:$('next-hint'), wordProgressNum:$('word-progress-num'), wordProgressLeft:$('word-progress-left'), dailyLabel:$('daily-label'), progressFill:$('progress-fill'), levelDots:$('level-dots'),
+    btnMode:$('btn-mode'), btnHelp:$('btn-help'), btnShare:$('btn-share'), btnGiveup:$('btn-giveup'), btnNew:$('btn-new'), btnDel:$('btn-del'), btnShuffle:$('btn-shuffle'), btnSubmit:$('btn-submit'),
+    scoreNum:$('score-num'), levelName:$('level-name'), nextHint:$('next-hint'), wordProgressNum:$('word-progress-num'), wordProgressLeft:$('word-progress-left'), dailyLabel:$('daily-label'), dailyLabelDate:$('daily-label-date'), headerDailyDate:$('header-daily-date'), headerModeTitle:$('header-mode-title'), scoreModeTitle:$('score-mode-title'), brandSub:$('brand-sub'), progressFill:$('progress-fill'), levelDots:$('level-dots'),
     inputArea:$('input-area'), inputLetters:$('input-letters'), feedback:$('fb-text'), hcSvg:$('hc-svg'),
     foundCount:$('found-count'), foundWords:$('found-words')
   });
@@ -887,7 +957,7 @@ function cacheDom(){
 (function init(){
   cacheDom();
   bindEvents();
-  dom.loaderMsg.textContent='Dagpuzzel voorbereiden…';
+  dom.loaderMsg.textContent='Spel voorbereiden…';
   setTimeout(()=>{
     dom.loaderMsg.textContent=PUZZELS.length.toLocaleString('nl-NL')+' puzzels geladen';
     setTimeout(()=>{
