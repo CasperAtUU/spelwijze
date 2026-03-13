@@ -1,4 +1,5 @@
 # Spelwijze
+![Screenshot van het spel](screenshot.png)
 
 Een kleine webimplementatie van het Nederlandse woordspel **Spelwijze**, geïnspireerd door de puzzel uit de Volkskrant.
 
