@@ -22,8 +22,8 @@ body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;mi
   background-size:auto,56px 100px}
 button:focus-visible,[role="button"]:focus-visible{outline:3px solid rgba(232,147,10,.35);outline-offset:3px}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-#app{max-width:920px;margin:0 auto;padding:0 20px 40px;display:grid;grid-template-columns:1fr 300px;grid-template-rows:auto auto;gap:0 28px}
-header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:space-between;padding:20px 0 18px;border-bottom:1.5px solid var(--cream3);margin-bottom:28px;gap:18px}
+#app{max-width:920px;margin:0 auto;padding:0 18px 28px;display:grid;grid-template-columns:1fr 292px;grid-template-rows:auto auto;gap:0 24px}
+header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:space-between;padding:16px 0 14px;border-bottom:1.5px solid var(--cream3);margin-bottom:20px;gap:16px}
 .brand{display:flex;align-items:center;gap:14px}
 .logo{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:700;color:var(--ink);letter-spacing:-0.5px;display:flex;align-items:center;gap:10px}
 .logo-bee{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--amber);border-radius:50%;font-size:1.2rem;box-shadow:0 2px 8px rgba(232,147,10,0.35)}
@@ -37,17 +37,21 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
 .btn-ghost{background:transparent;border:1.5px solid var(--cream3);color:var(--ink-soft);padding:7px 16px;border-radius:24px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;transition:all .18s;letter-spacing:0.2px}
 .btn-ghost:hover{border-color:var(--amber);color:var(--amber);background:rgba(232,147,10,0.05)}
 #game-col{display:flex;flex-direction:column;align-items:center;gap:0}
-#score-area{width:100%;max-width:440px;margin-bottom:20px}
-#score-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-#level-name{font-size:14px;font-weight:600;color:var(--amber);letter-spacing:0.3px}
-#score-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--ink);line-height:1}
-#score-label{font-size:12px;color:var(--ink-faint);margin-left:4px}
-#next-hint{font-size:11.5px;color:var(--ink-faint);margin-bottom:6px;min-height:16px}
-#word-progress{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;padding:7px 10px;border:1px solid var(--cream3);border-radius:12px;background:rgba(255,255,255,.65)}
-#word-progress strong{font-size:13px;color:var(--ink);font-weight:600}
-#word-progress span{font-size:11.5px;color:var(--ink-faint)}
-#score-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 8px}
-#daily-label{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--cream3);background:rgba(255,255,255,.72);font-size:12px;color:var(--ink-soft)}
+#score-area{width:100%;max-width:440px;margin-bottom:12px}
+#score-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+#level-name{font-size:13px;font-weight:600;color:var(--amber);letter-spacing:0.25px}
+#score-num{font-family:'Cormorant Garamond',serif;font-size:1.84rem;font-weight:700;color:var(--ink);line-height:1}
+#score-label{font-size:11px;color:var(--ink-faint);margin-left:4px}
+#next-hint{font-size:11px;color:var(--ink-faint);margin-bottom:5px;min-height:14px}
+#progress-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:stretch;margin-bottom:8px}
+#word-progress,#pangram-progress{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 9px;border:1px solid var(--cream3);border-radius:11px}
+#word-progress{background:rgba(255,255,255,.65)}
+#word-progress strong{font-size:12.5px;color:var(--ink);font-weight:600}
+#word-progress span{font-size:11px;color:var(--ink-faint)}
+#word-progress strong,#word-progress span{min-width:0}
+#word-progress span{text-align:right}
+#score-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 6px}
+#daily-label{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;border:1px solid var(--cream3);background:rgba(255,255,255,.72);font-size:11.5px;color:var(--ink-soft)}
 #daily-label strong{color:var(--ink);font-weight:600}
 #share-preview{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;padding:12px 14px;border:1px solid var(--cream3);border-radius:12px;background:rgba(255,255,255,.7);margin-top:8px}
 #share-note{margin-top:10px;font-size:12px;color:var(--ink-faint)}
@@ -71,18 +75,18 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
 .ldot{width:6px;height:6px;border-radius:50%;background:var(--cream3);border:1.5px solid var(--cream);transition:background .3s,transform .2s;position:relative}
 .ldot.done{background:var(--amber-light)}.ldot.now{background:var(--amber);transform:scale(1.4);box-shadow:0 0 0 3px rgba(232,147,10,0.2)}
 .ldot[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:var(--ink);color:white;font-size:10px;padding:3px 7px;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:10}
-#input-area{width:100%;max-width:440px;margin-bottom:10px;min-height:62px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--cream3)}
-#input-letters{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;letter-spacing:6px;display:flex;align-items:center;min-height:48px;gap:2px}
+#input-area{width:100%;max-width:440px;margin-bottom:6px;min-height:56px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--cream3)}
+#input-letters{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;letter-spacing:5px;display:flex;align-items:center;min-height:42px;gap:2px}
 .il-c{color:var(--amber)}.il-o{color:var(--ink)}
 #cursor{width:2.5px;height:32px;background:var(--amber);border-radius:2px;margin-left:2px;animation:blink 1s step-end infinite;align-self:center}
 @keyframes blink{50%{opacity:0}}
 @keyframes shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-6px)}30%{transform:translateX(6px)}45%{transform:translateX(-4px)}60%{transform:translateX(4px)}75%{transform:translateX(-2px)}90%{transform:translateX(2px)}}
 #input-area.shake{animation:shake .42s ease}
-#feedback-area{height:30px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+#feedback-area{height:24px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 #fb-text{font-size:14px;font-weight:600;opacity:0;transform:translateY(4px) scale(.96);transition:opacity .13s,transform .13s;letter-spacing:0.2px}
 #fb-text.show{opacity:1;transform:translateY(0) scale(1)}
 #fb-text.ok{color:var(--ok)}#fb-text.pangram{color:var(--pangram);font-size:16px}#fb-text.error{color:var(--err)}#fb-text.warn{color:var(--warn)}
-#hc-wrap{width:300px;height:278px;margin:4px 0 8px;filter:drop-shadow(0 6px 20px rgba(44,31,14,0.10))}
+#hc-wrap{width:286px;height:262px;margin:2px 0 6px;filter:drop-shadow(0 6px 18px rgba(44,31,14,0.10))}
 #hc-svg{width:100%;height:100%;overflow:visible}
 .hx{cursor:pointer}.hx-bg{transition:fill .12s,filter .12s;transform-origin:50% 50%;transform-box:fill-box}
 .hx-bg.outer{fill:var(--hex-fill)}.hx-bg.center{fill:var(--amber)}
@@ -98,21 +102,29 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
 .hx.animating{pointer-events:none}
 .hx.move{transition:transform .24s cubic-bezier(.22,.9,.24,1.08),opacity .24s ease}
 .hx.lift{opacity:.96}
-#controls{display:flex;gap:10px;align-items:center;margin-top:4px}
-.btn{font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:28px;padding:11px 22px;transition:all .15s;letter-spacing:0.2px}
+#controls{display:flex;gap:8px;align-items:center;margin-top:2px}
+.btn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;border:none;cursor:pointer;border-radius:26px;padding:10px 18px;transition:all .15s;letter-spacing:0.15px}
 .btn-line{background:white;border:1.5px solid var(--cream3);color:var(--ink-soft);box-shadow:0 1px 3px var(--shadow)}
 .btn-line:hover{border-color:var(--amber-light);color:var(--amber);background:rgba(232,147,10,0.04)}
 .btn-line:active{transform:scale(.95)}
 .btn-solid{background:var(--amber);color:white;box-shadow:0 3px 12px rgba(232,147,10,0.35)}
 .btn-solid:hover{background:#D4820A;box-shadow:0 4px 16px rgba(232,147,10,0.50);transform:translateY(-1px)}
 .btn-solid:active{transform:scale(.95)}
-#found-panel{background:white;border:1.5px solid var(--cream3);border-radius:18px;padding:18px;box-shadow:0 2px 12px var(--shadow);align-self:start;position:sticky;top:20px;max-height:calc(100vh - 48px);display:flex;flex-direction:column}
-#found-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--cream3)}
+#found-panel{background:white;border:1.5px solid var(--cream3);border-radius:18px;padding:15px;box-shadow:0 2px 12px var(--shadow);align-self:start;position:sticky;top:16px;max-height:calc(100vh - 36px);display:flex;flex-direction:column}
+#found-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid var(--cream3);gap:10px}
+#found-title-wrap{display:flex;flex-direction:column;gap:5px}
 #found-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-faint)}
-#found-count{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--amber)}
+#found-pangrams{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--pangram);font-weight:600}
+#found-pangrams .pangram-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:999px;background:rgba(123,63,160,.10);font-size:11px;line-height:1}
+#found-count{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--amber);line-height:1}
 #found-words{overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:3px;padding-right:4px}
 #found-words::-webkit-scrollbar{width:3px}
 #found-words::-webkit-scrollbar-thumb{background:var(--cream3);border-radius:2px}
+
+#score-area{backdrop-filter:saturate(110%) blur(2px)}
+#found-panel{backdrop-filter:saturate(110%) blur(2px)}
+#score-top,#found-header{letter-spacing:.01em}
+
 .word-row{display:flex;align-items:center;justify-content:space-between;padding:4px 8px;border-radius:8px;transition:background .1s;animation:row-in .2s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes row-in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
 .word-row:hover{background:var(--cream2)}.word-row.pgram{background:rgba(123,63,160,.06)}
@@ -145,13 +157,54 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
 #loader-msg{font-size:15px;color:var(--ink-soft);letter-spacing:0.3px}
 .conf{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:500;animation:conf-fall 1.2s ease-in forwards}
 @keyframes conf-fall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(180px) rotate(720deg)}}
+
+/* polish */
+:root{--amber-deep:#c97907;--sage:#486e53;--plum:#6f3f90;--card:rgba(255,255,255,.82)}
+body{line-height:1.45}
+header,.btn-ghost,#score-area,#found-panel,#daily-label,#word-progress,#share-preview,#solution-list,#modal{backdrop-filter:saturate(1.05)}
+#score-area{background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,255,255,.52));border:1.5px solid rgba(205,186,150,.42);border-radius:20px;padding:16px 18px;box-shadow:0 8px 28px rgba(44,31,14,.06)}
+#score-top{margin-bottom:8px}
+#score-num{font-size:2.25rem}
+#level-name{display:inline-flex;align-items:center;gap:8px}
+#word-progress,#pangram-progress{box-shadow:inset 0 1px 0 rgba(255,255,255,.6);min-width:150px;background:rgba(123,63,160,.045)}
+#pangram-progress strong{font-size:12.5px;color:var(--pangram);font-weight:700;white-space:nowrap}
+#pangram-progress span{font-size:11px;color:var(--ink-faint);white-space:nowrap;text-align:right}
+#daily-label{box-shadow:0 2px 10px rgba(44,31,14,.05)}
+.btn-ghost{background:rgba(255,255,255,.6)}
+.btn-ghost:hover{box-shadow:0 4px 16px rgba(232,147,10,.12)}
+#found-panel{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.74))}
+.word-row.pgram{box-shadow:inset 0 0 0 1px rgba(123,63,160,.08)}
+#fb-text.ok,#fb-text.pangram{filter:drop-shadow(0 1px 1px rgba(0,0,0,.03))}
+#input-area.success{animation:successFlash .48s ease}
+#input-area.pangram-win{animation:pangramFlash .72s ease}
+@keyframes successFlash{0%{transform:translateY(0);border-color:var(--cream3)}40%{transform:translateY(-1px);border-color:rgba(45,122,69,.45);box-shadow:0 10px 20px rgba(45,122,69,.08)}100%{transform:translateY(0);border-color:var(--cream3);box-shadow:none}}
+@keyframes pangramFlash{0%{transform:translateY(0)}35%{transform:translateY(-2px);border-color:rgba(123,63,160,.45);box-shadow:0 14px 28px rgba(123,63,160,.12)}100%{transform:translateY(0);border-color:var(--cream3);box-shadow:none}}
+.hx.pulse-in .hx-bg{animation:hexPulseIn .28s ease}
+.hx.pulse-in .hx-ltr{animation:hexTextIn .28s ease}
+@keyframes hexPulseIn{0%{transform:scale(.82)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes hexTextIn{0%{transform:scale(.85);opacity:.2}100%{transform:scale(1);opacity:1}}
+.word-row.just-added{animation:wordPop .42s cubic-bezier(.22,1.2,.32,1)}
+@keyframes wordPop{0%{transform:translateX(10px) scale(.97);background:rgba(232,147,10,.12)}100%{transform:translateX(0) scale(1)}}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.stat-card{padding:12px 14px;border:1px solid var(--cream3);border-radius:14px;background:rgba(255,255,255,.72)}
+.stat-card strong{display:block;font-size:1.35rem;font-family:'Cormorant Garamond',serif;color:var(--ink)}
+.stat-card span{display:block;font-size:12px;color:var(--ink-faint)}
+#archive-list{display:grid;gap:8px;max-height:min(52vh,430px);overflow:auto;padding-right:3px}
+.archive-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:14px;border:1px solid var(--cream3);background:rgba(255,255,255,.72)}
+.archive-meta{display:flex;flex-direction:column;gap:2px}
+.archive-meta strong{font-size:13px;color:var(--ink)}
+.archive-meta span{font-size:11.5px;color:var(--ink-faint)}
+.archive-chip{font-size:10px;font-weight:700;letter-spacing:.45px;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:rgba(232,147,10,.08);color:var(--amber-deep)}
+
 @media(max-width:680px){
+  #progress-row{grid-template-columns:1fr}
+  #pangram-progress{min-width:0}
   #score-actions{flex-direction:column;align-items:stretch}
   #score-actions .btn-ghost{width:100%}
-  #app{grid-template-columns:1fr;padding:0 14px 32px;gap:0}
-  header{margin-bottom:20px;align-items:stretch}.brand{align-items:flex-start}.logo{font-size:1.6rem}.brand-meta{flex-direction:column;align-items:flex-start;gap:8px}.header-right{justify-content:stretch}
-  #found-panel{position:static;max-height:220px;margin-top:24px}
-  #hc-wrap{width:270px;height:250px}
+  #app{grid-template-columns:1fr;padding:0 14px 24px;gap:0}
+  header{margin-bottom:16px;align-items:stretch}.brand{align-items:flex-start}.logo{font-size:1.6rem}.brand-meta{flex-direction:column;align-items:flex-start;gap:8px}.header-right{justify-content:stretch}
+  #found-panel{position:static;max-height:220px;margin-top:18px}
+  #hc-wrap{width:264px;height:244px}
   #input-letters{font-size:2rem}
 }
 </style>
@@ -172,6 +225,8 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
     </div>
     <div class="header-right">
       <button id="btn-mode" class="btn-ghost" type="button">Vrij spel</button>
+      <button id="btn-archive" class="btn-ghost" type="button">Archief</button>
+      <button id="btn-stats" class="btn-ghost" type="button">Statistieken</button>
       <button id="btn-help" class="btn-ghost" type="button">Spelregels</button>
       <button id="btn-giveup" class="btn-ghost" type="button">Ik geef het op</button>
       <button id="btn-new" class="btn-ghost" type="button">Opnieuw</button>
@@ -184,7 +239,9 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
         <div><span id="score-num">0</span><span id="score-label"> punten</span></div>
       </div>
       <div id="next-hint"></div>
-      <div id="word-progress" aria-live="polite"><strong id="word-progress-num">0 van 0 woorden</strong><span id="word-progress-left">Nog 0 te vinden</span></div>
+      <div id="progress-row">
+        <div id="word-progress" aria-live="polite"><strong id="word-progress-num">0 van 0 woorden</strong><span id="word-progress-left">Nog 0 te vinden</span></div>
+      </div>
       <div id="score-actions"><span id="daily-label"><strong id="score-mode-title">Vandaag</strong><span id="daily-label-date">dagpuzzel</span></span><button id="btn-share" class="btn-ghost" type="button">Deel resultaat</button></div>
       <div id="progress-wrap" aria-hidden="true"><div id="progress-fill"></div></div>
       <div id="level-dots" aria-hidden="true"></div>
@@ -200,7 +257,10 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
   </div>
   <aside id="found-panel" aria-labelledby="found-title">
     <div id="found-header">
-      <div id="found-title">Gevonden woorden</div>
+      <div id="found-title-wrap">
+        <div id="found-title">Gevonden woorden</div>
+        <div id="found-pangrams"><span class="pangram-icon">✦</span><span id="found-pangram-count">0/0 pangrams</span></div>
+      </div>
       <div id="found-count">0</div>
     </div>
     <div id="found-words" aria-live="polite" aria-label="Gevonden woordenlijst"></div>
@@ -337,7 +397,9 @@ function filterBasiswoorden(arr){
 
 const MODE_DAILY = 'daily';
 const MODE_FREE = 'free';
+const MODE_ARCHIVE = 'archive';
 let APP_MODE = MODE_DAILY;
+let archivePuzzleDate = null;
 
 const DAILY_EPOCH = '2026-01-01';
 function todayId(){
@@ -345,26 +407,149 @@ function todayId(){
   const local = new Date(now.getTime() - now.getTimezoneOffset()*60000);
   return local.toISOString().slice(0,10);
 }
-function dayDiffFromEpoch(){
+function dayDiffFromEpoch(dateStr=todayId()){
   const start = new Date(DAILY_EPOCH + 'T00:00:00');
-  const today = new Date(todayId() + 'T00:00:00');
-  return Math.max(0, Math.floor((today - start) / 86400000));
+  const day = new Date(dateStr + 'T00:00:00');
+  return Math.max(0, Math.floor((day - start) / 86400000));
 }
-function dailyIndex(total){
-  return total ? dayDiffFromEpoch() % total : 0;
+function dailyIndex(total, dateStr=todayId()){
+  return total ? dayDiffFromEpoch(dateStr) % total : 0;
+}
+function puzzleDateId(){
+  return APP_MODE===MODE_ARCHIVE && archivePuzzleDate ? archivePuzzleDate : todayId();
 }
 function currentSaveKey(){
-  return APP_MODE===MODE_FREE ? 'sw7-free' : 'sw7-' + todayId();
+  if(APP_MODE===MODE_FREE) return 'sw7-free';
+  if(APP_MODE===MODE_ARCHIVE && archivePuzzleDate) return 'sw7-archive-' + archivePuzzleDate;
+  return 'sw7-' + todayId();
 }
-function formatDailyLabel(){
-  return new Date(todayId() + 'T00:00:00').toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+function formatDailyLabel(dateStr=puzzleDateId()){
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 }
+
+
+function activePuzzleKey(){ return currentSaveKey(); }
+function readStats(){
+  try{
+    const s = JSON.parse(localStorage.getItem('sw7-stats')||'null') || {};
+    return {
+      played: s.played||0, completed:s.completed||0, givenUp:s.givenUp||0,
+      bestPct:s.bestPct||0, totalWords:s.totalWords||0, pangrams:s.pangrams||0,
+      streak:s.streak||0, lastCompleteDate:s.lastCompleteDate||'', seen:s.seen||{}, finished:s.finished||{}
+    };
+  }catch(e){
+    return {played:0,completed:0,givenUp:0,bestPct:0,totalWords:0,pangrams:0,streak:0,lastCompleteDate:'',seen:{},finished:{}};
+  }
+}
+function saveStats(stats){ try{ localStorage.setItem('sw7-stats', JSON.stringify(stats)); }catch(e){} }
+function markPuzzleSeen(){
+  const stats = readStats();
+  const key = activePuzzleKey();
+  if(!stats.seen[key]){
+    stats.seen[key] = {date: puzzleDateId(), mode: APP_MODE};
+    stats.played++;
+    saveStats(stats);
+  }
+}
+function addWordStat(isPangram=false){
+  const stats = readStats();
+  stats.totalWords++;
+  if(isPangram) stats.pangrams++;
+  saveStats(stats);
+}
+function finalizeStats(kind='completed'){
+  const stats = readStats();
+  const key = activePuzzleKey();
+  if(stats.finished[key]) return;
+  stats.finished[key] = kind;
+  const pct = G.gel.length ? G.gev.length / G.gel.length : 0;
+  if(pct > stats.bestPct) stats.bestPct = pct;
+  if(kind==='completed'){
+    stats.completed++;
+    if(APP_MODE===MODE_DAILY){
+      const prev = stats.lastCompleteDate;
+      const yesterday = new Date(todayId() + 'T00:00:00');
+      yesterday.setDate(yesterday.getDate()-1);
+      const y = yesterday.toISOString().slice(0,10);
+      stats.streak = prev===y ? (stats.streak||0)+1 : 1;
+      stats.lastCompleteDate = todayId();
+    }
+  } else if(kind==='gaveup'){
+    stats.givenUp++;
+  }
+  saveStats(stats);
+}
+function buildStatsContent(){
+  const s = readStats();
+  const frag=document.createDocumentFragment();
+  frag.appendChild(makeEl('p','Je lokale statistieken op dit apparaat.'));
+  const grid=makeEl('div',null,'stat-grid');
+  const items = [
+    ['Gespeeld', s.played],
+    ['Voltooid', s.completed],
+    ['Opgegeven', s.givenUp],
+    ['Beste score', Math.round((s.bestPct||0)*100)+'%'],
+    ['Woorden gevonden', s.totalWords],
+    ['Pangrams', s.pangrams],
+    ['Dagstreak', s.streak],
+    ['Succesratio', s.played?Math.round((s.completed/s.played)*100)+'%':'0%']
+  ];
+  items.forEach(([label,val])=>{
+    const card=makeEl('div',null,'stat-card');
+    const strong=makeEl('strong', String(val));
+    const span=makeEl('span', label);
+    card.append(strong, span);
+    grid.appendChild(card);
+  });
+  frag.appendChild(grid);
+  return frag;
+}
+function openStats(){
+  openModal('Statistieken', buildStatsContent, [{t:'Sluiten',p:true}]);
+}
+function buildArchiveContent(){
+  const frag=document.createDocumentFragment();
+  frag.appendChild(makeEl('p','Speel een recente dagpuzzel opnieuw vanuit het archief.'));
+  const box=makeEl('div',null); box.id='archive-list';
+  const stats = readStats();
+  for(let i=0;i<21;i++){
+    const d = new Date(todayId() + 'T00:00:00');
+    d.setDate(d.getDate()-i);
+    const id = d.toISOString().slice(0,10);
+    const key = 'sw7-archive-' + id;
+    const row=makeEl('div',null,'archive-row');
+    const left=makeEl('div',null,'archive-meta');
+    left.append(makeEl('strong', formatDailyLabel(id)), makeEl('span', i===0 ? 'vandaag' : i===1 ? 'gisteren' : id));
+    const right=document.createElement('div');
+    right.style.display='flex'; right.style.alignItems='center'; right.style.gap='8px';
+    const status = stats.finished[key] || stats.finished['sw7-' + id];
+    if(status){
+      const chip=makeEl('span', status==='completed'?'voltooid':'bekeken', 'archive-chip');
+      right.appendChild(chip);
+    }
+    const btn=makeEl('button','Open','btn btn-line');
+    btn.addEventListener('click', ()=>{
+      closeModal();
+      loadArchiveDate(id);
+    });
+    right.appendChild(btn);
+    row.append(left, right);
+    box.appendChild(row);
+  }
+  frag.appendChild(box);
+  return frag;
+}
+function openArchive(){
+  openModal('Archief', buildArchiveContent, [{t:'Sluiten',p:true}]);
+}
+
 
 const G = (() => {
   let ltrs=[], ctr='', gel=[], gev=[], score=0, max=0, inp='';
   let vorigNiv = NIV[0];
   let puzzleIndex = -1;
   let opgegeven = false;
+  let invalidCounts = Object.create(null);
   let currentMode = MODE_DAILY;
 
   function pts(w) {
@@ -384,27 +569,34 @@ const G = (() => {
     ltrs=[pz.c,...outer];
     ctr=pz.c;
     gel=pz.w.slice();
-    if (resetFound) { gev=[]; score=0; inp=''; opgegeven=false; }
+    if (resetFound) { gev=[]; score=0; inp=''; opgegeven=false; invalidCounts = Object.create(null); }
     max=gel.reduce((s,w)=>s+pts(w),0);
     vorigNiv=getNiveau();
     return true;
   }
 
-  function genereer(mode=currentMode) {
+  function genereer(mode=currentMode, archiveDate=null) {
     if (!PUZZELS.length) return false;
     currentMode = mode || MODE_DAILY;
     APP_MODE = currentMode;
+    archivePuzzleDate = currentMode===MODE_ARCHIVE ? archiveDate : null;
     let idx = dailyIndex(PUZZELS.length);
     if(currentMode===MODE_FREE){
       idx = Math.floor(Math.random()*PUZZELS.length);
       if(PUZZELS.length>1 && idx===dailyIndex(PUZZELS.length)) idx = (idx+1)%PUZZELS.length;
+    } else if(currentMode===MODE_ARCHIVE && archiveDate){
+      idx = dailyIndex(PUZZELS.length, archiveDate);
     }
-    return laadPuzzel(idx, true);
+    const ok = laadPuzzel(idx, true);
+    if(ok) markPuzzleSeen();
+    return ok;
   }
 
   function add(c){ inp+=c; renderInp(); }
   function del(){ inp=inp.slice(0,-1); renderInp(); }
   function clr(){ inp=''; renderInp(); }
+  function markInvalid(w){ invalidCounts[w] = (invalidCounts[w]||0)+1; return invalidCounts[w]; }
+  function clearInvalid(w){ delete invalidCounts[w]; }
   let shuffleBusy = false;
   function shuffle(){
     if (shuffleBusy) return;
@@ -436,13 +628,13 @@ const G = (() => {
         node.removeEventListener('transitionend', done);
         pending--;
         if(pending<=0){
-          buildHC();
+          buildHC(); pulseHoneycomb();
           shuffleBusy = false;
         }
       };
       node.addEventListener('transitionend', done, {once:true});
     });
-    if(!pending){ buildHC(); shuffleBusy = false; }
+    if(!pending){ buildHC(); pulseHoneycomb(); shuffleBusy = false; }
   }
 
   function submit() {
@@ -455,15 +647,29 @@ const G = (() => {
     if (w.length < 4)      { fout('Te kort. Minimaal 4 letters.'); return; }
     if (!w.includes(ctr))  { fout("De middenletter '"+toonTekst(ctr).toUpperCase()+"' is verplicht."); return; }
     if (gev.includes(w))   { fout('Al gevonden. Probeer een ander woord.','warn'); return; }
-    if (!gel.includes(w))  { fout('Niet geldig voor dit spel.'); return; }
+    if (!gel.includes(w))  {
+      const tries = markInvalid(w);
+      if(tries >= 3) fout("Dat woord had je al geprobeerd.",'warn');
+      else if(tries === 2) fout("Nog steeds niet geldig voor dit spel.",'warn');
+      else fout('Niet geldig voor dit spel.');
+      return;
+    }
 
+    clearInvalid(w);
     const p=pts(w), pg=isPgram(w);
     gev.push(w); score+=p;
+    addWordStat(pg);
     const nieuwNiv=getNiveau();
     if(nieuwNiv!==vorigNiv){ toonLevelUp(nieuwNiv); vorigNiv=nieuwNiv; }
+    flashInputSuccess(pg);
     if(pg){ toast('Pangram. +'+p+' punten.','pangram'); confetti(); }
     else  { toast('+'+p+' punt'+(p===1?'':'en')+'.','ok'); }
-    renderScore(); renderGev(); save();
+    renderScore(); renderGev(w); save();
+    if(gev.length===gel.length){
+      finalizeStats('completed');
+      toast('Alles gevonden. Prachtig werk.','pangram');
+      confetti();
+    }
   }
 
   function fout(msg,type='error') {
@@ -485,40 +691,49 @@ const G = (() => {
   }
   function load() {
     try{
-      currentMode = MODE_DAILY;
-      APP_MODE = currentMode;
+      currentMode = APP_MODE===MODE_ARCHIVE ? MODE_ARCHIVE : MODE_DAILY;
+      const idx = currentMode===MODE_ARCHIVE && archivePuzzleDate ? dailyIndex(PUZZELS.length, archivePuzzleDate) : dailyIndex(PUZZELS.length);
       const s=JSON.parse(localStorage.getItem(currentSaveKey()));
-      const idx = dailyIndex(PUZZELS.length);
       if(!s || typeof s.i!=='number') {
-        return laadPuzzel(idx, true);
+        const ok = laadPuzzel(idx, true);
+        if(ok) markPuzzleSeen();
+        return ok;
       }
-      if(s.i !== idx) return laadPuzzel(idx, true);
+      if(s.i !== idx) {
+        const ok = laadPuzzel(idx, true);
+        if(ok) markPuzzleSeen();
+        return ok;
+      }
       if(!laadPuzzel(s.i,false)) return false;
-      ltrs=s.ltrs||ltrs; ctr=s.ctr||ctr; gel=s.gel||gel; gev=Array.isArray(s.gev)?s.gev:[]; score=s.score||0; max=s.max||max; opgegeven=!!s.opgegeven; inp='';
-      vorigNiv=getNiveau(); return true;
+      ltrs=s.ltrs||ltrs; ctr=s.ctr||ctr; gel=s.gel||gel; gev=Array.isArray(s.gev)?s.gev:[]; score=s.score||0; max=s.max||max; opgegeven=!!s.opgegeven; inp=''; invalidCounts = Object.create(null);
+      vorigNiv=getNiveau(); markPuzzleSeen(); return true;
     }catch(e){
-      currentMode = MODE_DAILY;
-      APP_MODE = currentMode;
-      return laadPuzzel(dailyIndex(PUZZELS.length), true);
+      currentMode = APP_MODE===MODE_ARCHIVE ? MODE_ARCHIVE : MODE_DAILY;
+      const ok = laadPuzzel(currentMode===MODE_ARCHIVE && archivePuzzleDate ? dailyIndex(PUZZELS.length, archivePuzzleDate) : dailyIndex(PUZZELS.length), true);
+      if(ok) markPuzzleSeen();
+      return ok;
     }
   }
-  function wis(){ try{ localStorage.removeItem(currentSaveKey()); }catch(e){} puzzleIndex=dailyIndex(PUZZELS.length); }
+  function wis(){ try{ localStorage.removeItem(currentSaveKey()); }catch(e){} puzzleIndex=dailyIndex(PUZZELS.length, puzzleDateId()); invalidCounts = Object.create(null); }
 
-  function switchMode(mode){
-    currentMode = mode===MODE_FREE ? MODE_FREE : MODE_DAILY;
+  function switchMode(mode, archiveDate=null){
+    currentMode = mode===MODE_FREE ? MODE_FREE : (mode===MODE_ARCHIVE ? MODE_ARCHIVE : MODE_DAILY);
     APP_MODE = currentMode;
+    archivePuzzleDate = currentMode===MODE_ARCHIVE ? archiveDate : null;
     if(currentMode===MODE_DAILY){
-      try{ localStorage.removeItem('sw7-free'); }catch(e){}
+      return load();
+    }
+    if(currentMode===MODE_ARCHIVE){
       return load();
     }
     try{ localStorage.removeItem('sw7-free'); }catch(e){}
     return genereer(MODE_FREE);
   }
 
-  function geefOp(){ opgegeven = true; save(); }
+  function geefOp(){ opgegeven = true; finalizeStats('gaveup'); save(); }
 
   return {genereer,add,del,clr,shuffle,submit,save,load,wis,setWoorden,getNiveau,geefOp,switchMode,
-    get ltrs(){return ltrs;},get ctr(){return ctr;},get mode(){return currentMode;},
+    get ltrs(){return ltrs;},get ctr(){return ctr;},get mode(){return currentMode;},get puzzleDate(){return puzzleDateId();},
     get score(){return score;},get max(){return max;},get gev(){return gev;},get gel(){return gel;},get opgegeven(){return opgegeven;},
     pts,isPgram,getInp(){return inp;}};
 })();;
@@ -582,14 +797,15 @@ function renderInp(){
 
 function applyModeUI(){
   const vrij = G.mode===MODE_FREE;
+  const archief = G.mode===MODE_ARCHIVE;
   const dagTekst = formatDailyLabel();
-  if(dom.headerModeTitle) dom.headerModeTitle.textContent = vrij ? 'Vrij spel' : 'Dagpuzzel';
-  if(dom.scoreModeTitle) dom.scoreModeTitle.textContent = vrij ? 'Vrij spel' : 'Vandaag';
+  if(dom.headerModeTitle) dom.headerModeTitle.textContent = vrij ? 'Vrij spel' : (archief ? 'Archief' : 'Dagpuzzel');
+  if(dom.scoreModeTitle) dom.scoreModeTitle.textContent = vrij ? 'Vrij spel' : (archief ? 'Archief' : 'Vandaag');
   if(dom.headerDailyDate) dom.headerDailyDate.textContent = vrij ? 'willekeurige puzzel' : dagTekst;
   if(dom.dailyLabelDate) dom.dailyLabelDate.textContent = vrij ? 'willekeurige puzzel' : dagTekst;
-  if(dom.brandSub) dom.brandSub.textContent = vrij ? 'Vrij spelen met een losse puzzel. Teruggaan wist je vrije spel.' : 'Elke dag één puzzel. Rustig zoeken, slim combineren.';
-  dom.btnMode.textContent = vrij ? 'Terug naar dagpuzzel' : 'Vrij spel';
-  dom.btnShare.hidden = vrij;
+  if(dom.brandSub) dom.brandSub.textContent = vrij ? 'Vrij spelen met een losse puzzel. Teruggaan wist je vrije spel.' : (archief ? 'Een eerdere dagpuzzel opnieuw gespeeld vanuit het archief.' : 'Elke dag één puzzel. Rustig zoeken, slim combineren.');
+  dom.btnMode.textContent = (vrij || archief) ? 'Terug naar dagpuzzel' : 'Vrij spel';
+  dom.btnShare.hidden = vrij || archief;
 }
 
 function renderScore(){
@@ -604,8 +820,11 @@ function renderScore(){
   dom.nextHint.textContent=G.opgegeven ? 'Puzzel opgegeven. Alle oplossingen zijn bekeken.' : (nxt ? 'Nog '+Math.max(0,Math.ceil(nxt.m*G.max)-G.score)+' pt voor '+nxt.n : 'Maximaal niveau bereikt.');
   const totaal = G.gel.length;
   const gevonden = G.gev.length;
+  const pTotaal = G.gel.filter(w=>G.isPgram(w)).length;
+  const pGevonden = G.gev.filter(w=>G.isPgram(w)).length;
   dom.wordProgressNum.textContent = gevonden + ' van ' + totaal + ' woorden';
   dom.wordProgressLeft.textContent = G.opgegeven ? 'Oplossing getoond' : (gevonden===totaal ? 'Alles gevonden' : 'Nog ' + (totaal-gevonden) + ' te vinden');
+  if(dom.foundPangramCount) dom.foundPangramCount.textContent = pGevonden + '/' + pTotaal + ' pangrams';
   dom.btnGiveup.disabled = G.opgegeven;
   dom.btnGiveup.textContent = G.opgegeven ? 'Oplossing bekeken' : 'Ik geef het op';
   applyModeUI();
@@ -618,7 +837,7 @@ function renderScore(){
   });
 }
 
-function renderGev(){
+function renderGev(latestWord=''){
   const lijst=[...G.gev].sort((a,b)=>{
     const pa=G.isPgram(a),pb=G.isPgram(b);
     if(pa!==pb) return pb-pa;
@@ -629,7 +848,7 @@ function renderGev(){
   while (dom.foundWords.firstChild) dom.foundWords.removeChild(dom.foundWords.firstChild);
   lijst.forEach(w=>{
     const p=G.pts(w),pg=G.isPgram(w);
-    const row=document.createElement('div'); row.className='word-row'+(pg?' pgram':'');
+    const row=document.createElement('div'); row.className='word-row'+(pg?' pgram':'')+(w===latestWord?' just-added':'');
     const left=document.createElement('span'); left.className='word-text'; left.textContent=toonTekst(w);
     const right=document.createElement('span'); right.className='word-meta';
     if(pg){ const badge=document.createElement('span'); badge.className='word-pgram-badge'; badge.textContent='✦'; right.appendChild(badge); }
@@ -671,6 +890,21 @@ function knipoogletter(display){
     }
   });
 }
+function pulseHoneycomb(){
+  document.querySelectorAll('.hx').forEach((g,i)=>{
+    setTimeout(()=>{
+      g.classList.remove('pulse-in');
+      void g.offsetWidth;
+      g.classList.add('pulse-in');
+    }, i*26);
+  });
+}
+function flashInputSuccess(isPangram){
+  dom.inputArea.classList.remove('success','pangram-win');
+  void dom.inputArea.offsetWidth;
+  dom.inputArea.classList.add(isPangram ? 'pangram-win' : 'success');
+  dom.inputArea.addEventListener('animationend',()=>dom.inputArea.classList.remove('success','pangram-win'),{once:true});
+}
 
 function makeEl(tag, text, cls){
   const el=document.createElement(tag);
@@ -708,15 +942,16 @@ function buildHelpContent(){
 
 
 function shareScoreText(){
-  const date = new Date(todayId() + 'T00:00:00').toLocaleDateString('nl-NL', { day:'2-digit', month:'2-digit', year:'numeric' });
+  const date = new Date(puzzleDateId() + 'T00:00:00').toLocaleDateString('nl-NL', { day:'2-digit', month:'2-digit', year:'numeric' });
   const gevonden = G.gev.length;
   const totaal = G.gel.length;
+  const pangrams = G.gev.filter(w=>G.isPgram(w)).length;
   const scoreLine = `${gevonden}/${totaal} woorden · ${G.score} punten`;
   const ratio = totaal ? gevonden / totaal : 0;
   const filled = Math.max(0, Math.min(8, Math.round(ratio * 8)));
   const bar = '🟨'.repeat(filled) + '⬜'.repeat(8-filled);
-  const status = G.opgegeven ? 'Opgave bekeken' : (gevonden===totaal ? 'Alles gevonden' : G.getNiveau().n);
-  return `Spelwijze ${date}\n${scoreLine}\n${status}\n${bar}\n${location.href}`;
+  const status = G.opgegeven ? 'Oplossing bekeken' : (gevonden===totaal ? 'Alles gevonden' : G.getNiveau().n);
+  return `Spelwijze ${date}\n${scoreLine}\nPangrams: ${pangrams}\n${bar}\n${status}\n${location.href}`;
 }
 async function copyShareText(){
   const txt = shareScoreText();
@@ -868,18 +1103,35 @@ function confirmNew(){
   }, [{t:'Annuleren'},{t:'Ja, opnieuw beginnen',p:true,f:startNew}]);
 }
 
+function loadArchiveDate(dateId){
+  document.activeElement?.blur?.();
+  dom.loader.classList.remove('gone');
+  dom.loader.setAttribute('aria-busy','true');
+  dom.loaderMsg.textContent='Archiefpuzzel laden…';
+  setTimeout(()=>{
+    if(!G.switchMode(MODE_ARCHIVE, dateId)){
+      dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
+      return;
+    }
+    buildHC(); pulseHoneycomb(); renderInp(); renderScore(); renderGev();
+    dom.loader.classList.add('gone');
+    dom.inputArea.focus({preventScroll:true});
+    dom.loader.setAttribute('aria-busy','false');
+  },60);
+}
+
 function startNew(){
   document.activeElement?.blur?.();
   G.wis(G.mode);
   dom.loader.classList.remove('gone');
   dom.loader.setAttribute('aria-busy','true');
-  dom.loaderMsg.textContent = G.mode===MODE_FREE ? 'Vrij spel laden…' : 'Dagpuzzel laden…';
+  dom.loaderMsg.textContent = G.mode===MODE_FREE ? 'Vrij spel laden…' : (G.mode===MODE_ARCHIVE ? 'Archiefpuzzel laden…' : 'Dagpuzzel laden…');
   setTimeout(()=>{
-    if(!G.genereer(G.mode)){
+    if(!G.genereer(G.mode, G.mode===MODE_ARCHIVE ? G.puzzleDate : null)){
       dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
       return;
     }
-    buildHC(); renderInp(); renderScore(); renderGev();
+    buildHC(); pulseHoneycomb(); renderInp(); renderScore(); renderGev();
     dom.loader.classList.add('gone');
     dom.inputArea.focus({preventScroll:true});
     dom.loader.setAttribute('aria-busy','false');
@@ -887,10 +1139,10 @@ function startNew(){
 }
 
 function toggleMode(){
-  if(G.mode===MODE_FREE){
+  if(G.mode===MODE_FREE || G.mode===MODE_ARCHIVE){
     openModal('Terug naar dagpuzzel?', ()=>{
       const frag=document.createDocumentFragment();
-      frag.appendChild(makeEl('p','Je vrije spel wordt dan weggegooid.'));
+      frag.appendChild(makeEl('p', G.mode===MODE_ARCHIVE ? 'Je archiefspel wordt dan gesloten.' : 'Je vrije spel wordt dan weggegooid.'));
       frag.appendChild(makeEl('p','Daarna laad je weer de dagpuzzel van vandaag.'));
       return frag;
     }, [{t:'Annuleren'},{t:'Terug naar dagpuzzel',p:true,f:()=>{
@@ -903,7 +1155,7 @@ function toggleMode(){
           dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
           return;
         }
-        buildHC(); renderInp(); renderScore(); renderGev();
+        buildHC(); pulseHoneycomb(); renderInp(); renderScore(); renderGev();
         dom.loader.classList.add('gone');
         dom.inputArea.focus({preventScroll:true});
         dom.loader.setAttribute('aria-busy','false');
@@ -920,7 +1172,7 @@ function toggleMode(){
       dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
       return;
     }
-    buildHC(); renderInp(); renderScore(); renderGev();
+    buildHC(); pulseHoneycomb(); renderInp(); renderScore(); renderGev();
     dom.loader.classList.add('gone');
     dom.inputArea.focus({preventScroll:true});
     dom.loader.setAttribute('aria-busy','false');
@@ -929,6 +1181,8 @@ function toggleMode(){
 
 function bindEvents(){
   dom.btnMode.addEventListener('click', toggleMode);
+  dom.btnArchive.addEventListener('click', openArchive);
+  dom.btnStats.addEventListener('click', openStats);
   dom.btnHelp.addEventListener('click', openHelp);
   dom.btnShare.addEventListener('click', openShare);
   dom.btnGiveup.addEventListener('click', geefOp);
@@ -975,10 +1229,10 @@ function cacheDom(){
     loader:$('loader'), loaderMsg:$('loader-msg'),
     levelUp:$('level-up-banner'), levelUpEmoji:$('lu-emoji'), levelUpName:$('lu-name'),
     modalOverlay:$('modal-overlay'), modal:$('modal'), modalTitle:$('modal-h'), modalBody:$('modal-b'), modalBtns:$('modal-btns'),
-    btnMode:$('btn-mode'), btnHelp:$('btn-help'), btnShare:$('btn-share'), btnGiveup:$('btn-giveup'), btnNew:$('btn-new'), btnDel:$('btn-del'), btnShuffle:$('btn-shuffle'), btnSubmit:$('btn-submit'),
-    scoreNum:$('score-num'), levelName:$('level-name'), nextHint:$('next-hint'), wordProgressNum:$('word-progress-num'), wordProgressLeft:$('word-progress-left'), dailyLabel:$('daily-label'), dailyLabelDate:$('daily-label-date'), headerDailyDate:$('header-daily-date'), headerModeTitle:$('header-mode-title'), scoreModeTitle:$('score-mode-title'), brandSub:$('brand-sub'), progressFill:$('progress-fill'), levelDots:$('level-dots'),
+    btnMode:$('btn-mode'), btnArchive:$('btn-archive'), btnStats:$('btn-stats'), btnHelp:$('btn-help'), btnShare:$('btn-share'), btnGiveup:$('btn-giveup'), btnNew:$('btn-new'), btnDel:$('btn-del'), btnShuffle:$('btn-shuffle'), btnSubmit:$('btn-submit'),
+    scoreNum:$('score-num'), levelName:$('level-name'), nextHint:$('next-hint'), wordProgressNum:$('word-progress-num'), wordProgressLeft:$('word-progress-left'), pangramProgressNum:$('pangram-progress-num'), pangramProgressLeft:$('pangram-progress-left'), dailyLabel:$('daily-label'), dailyLabelDate:$('daily-label-date'), headerDailyDate:$('header-daily-date'), headerModeTitle:$('header-mode-title'), scoreModeTitle:$('score-mode-title'), brandSub:$('brand-sub'), progressFill:$('progress-fill'), levelDots:$('level-dots'),
     inputArea:$('input-area'), inputLetters:$('input-letters'), feedback:$('fb-text'), hcSvg:$('hc-svg'),
-    foundCount:$('found-count'), foundWords:$('found-words')
+    foundCount:$('found-count'), foundPangramCount:$('found-pangram-count'), foundWords:$('found-words')
   });
 }
 
@@ -990,7 +1244,7 @@ function initApp(){
     dom.loaderMsg.textContent=PUZZELS.length.toLocaleString('nl-NL')+' puzzels geladen';
     setTimeout(()=>{
       if(G.load()){
-        buildHC(); renderInp(); renderScore(); renderGev();
+        buildHC(); pulseHoneycomb(); renderInp(); renderScore(); renderGev();
         dom.loader.classList.add('gone');
         dom.loader.setAttribute('aria-busy','false');
       } else {
