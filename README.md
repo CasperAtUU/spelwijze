@@ -1,7 +1,6 @@
 # Spelwijze
-![Screenshot van het spel](screenshot.png)
 
-Een kleine webimplementatie van het Nederlandse woordspel **Spelwijze**, geïnspireerd door de puzzel uit de Volkskrant.
+Een webimplementatie van het Nederlandse woordspel **Spelwijze**, geïnspireerd door de puzzel uit de Volkskrant.
 
 Speel hier:  
 https://casperatuu.github.io/spelwijze
@@ -62,3 +61,5 @@ meestal niet als aparte oplossingen voorkomen.
 ## Licentie
 
 Vrij te gebruiken en aan te passen.
+
+![Screenshot van het spel](screenshot.png)
