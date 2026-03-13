@@ -39,6 +39,10 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
 #word-progress{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;padding:7px 10px;border:1px solid var(--cream3);border-radius:12px;background:rgba(255,255,255,.65)}
 #word-progress strong{font-size:13px;color:var(--ink);font-weight:600}
 #word-progress span{font-size:11.5px;color:var(--ink-faint)}
+#score-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 8px}
+#daily-label{font-size:11.5px;color:var(--ink-faint)}
+#share-preview{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;padding:12px 14px;border:1px solid var(--cream3);border-radius:12px;background:rgba(255,255,255,.7);margin-top:8px}
+#share-note{margin-top:10px;font-size:12px;color:var(--ink-faint)}
 #solution-list{max-height:min(55vh,460px);overflow:auto;border:1px solid var(--cream3);border-radius:14px;background:rgba(255,255,255,.72);padding:8px}
 .solution-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 8px;border-radius:9px}
 .solution-row + .solution-row{margin-top:2px}
@@ -134,6 +138,8 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
 .conf{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:500;animation:conf-fall 1.2s ease-in forwards}
 @keyframes conf-fall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(180px) rotate(720deg)}}
 @media(max-width:680px){
+  #score-actions{flex-direction:column;align-items:stretch}
+  #score-actions .btn-ghost{width:100%}
   #app{grid-template-columns:1fr;padding:0 14px 32px;gap:0}
   header{margin-bottom:20px}.logo{font-size:1.6rem}
   #found-panel{position:static;max-height:220px;margin-top:24px}
@@ -152,7 +158,7 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
     <div class="header-right">
       <button id="btn-help" class="btn-ghost" type="button">Spelregels</button>
       <button id="btn-giveup" class="btn-ghost" type="button">Ik geef het op</button>
-      <button id="btn-new" class="btn-ghost" type="button">↻ Nieuw</button>
+      <button id="btn-new" class="btn-ghost" type="button">↻ Opnieuw</button>
     </div>
   </header>
   <div id="game-col">
@@ -163,6 +169,7 @@ header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-be
       </div>
       <div id="next-hint"></div>
       <div id="word-progress" aria-live="polite"><strong id="word-progress-num">0 van 0 woorden</strong><span id="word-progress-left">Nog 0 te vinden</span></div>
+      <div id="score-actions"><span id="daily-label">Dagpuzzel</span><button id="btn-share" class="btn-ghost" type="button">↗ Deel</button></div>
       <div id="progress-wrap" aria-hidden="true"><div id="progress-fill"></div></div>
       <div id="level-dots" aria-hidden="true"></div>
     </div>
@@ -312,10 +319,32 @@ function filterBasiswoorden(arr){
   return out;
 }
 
+const DAILY_EPOCH = '2026-01-01';
+function todayId(){
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset()*60000);
+  return local.toISOString().slice(0,10);
+}
+function dayDiffFromEpoch(){
+  const start = new Date(DAILY_EPOCH + 'T00:00:00');
+  const today = new Date(todayId() + 'T00:00:00');
+  return Math.max(0, Math.floor((today - start) / 86400000));
+}
+function dailyIndex(total){
+  return total ? dayDiffFromEpoch() % total : 0;
+}
+function currentSaveKey(){
+  return 'sw7-' + todayId();
+}
+function formatDailyLabel(){
+  return new Date(todayId() + 'T00:00:00').toLocaleDateString('nl-NL', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+}
+
 const G = (() => {
   let ltrs=[], ctr='', gel=[], gev=[], score=0, max=0, inp='';
   let vorigNiv = NIV[0];
   let puzzleIndex = -1;
+  let opgegeven = false;
 
   function pts(w) {
     if (w.length === 4) return 1;
@@ -342,9 +371,7 @@ const G = (() => {
 
   function genereer() {
     if (!PUZZELS.length) return false;
-    let idx = 0|Math.random()*PUZZELS.length;
-    if (PUZZELS.length > 1 && idx === puzzleIndex) idx = (idx + 1) % PUZZELS.length;
-    return laadPuzzel(idx, true);
+    return laadPuzzel(dailyIndex(PUZZELS.length), true);
   }
 
   function add(c){ inp+=c; renderInp(); }
@@ -425,19 +452,25 @@ const G = (() => {
 
   function save() {
     try{
-      localStorage.setItem('sw7',JSON.stringify({i:puzzleIndex,ltrs,ctr,gel,gev,score,max,opgegeven,d:new Date().toDateString()}));
+      localStorage.setItem(currentSaveKey(),JSON.stringify({i:puzzleIndex,ltrs,ctr,gel,gev,score,max,opgegeven,date:todayId()}));
     }catch(e){}
   }
   function load() {
     try{
-      const s=JSON.parse(localStorage.getItem('sw7'));
-      if(!s||s.d!==new Date().toDateString()||typeof s.i!=='number') return false;
+      const s=JSON.parse(localStorage.getItem(currentSaveKey()));
+      const idx = dailyIndex(PUZZELS.length);
+      if(!s || typeof s.i!=='number') {
+        return laadPuzzel(idx, true);
+      }
+      if(s.i !== idx) return laadPuzzel(idx, true);
       if(!laadPuzzel(s.i,false)) return false;
-      ltrs=s.ltrs||ltrs; ctr=s.ctr||ctr; gel=s.gel||gel; gev=s.gev||[]; score=s.score||0; max=s.max||max; opgegeven=!!s.opgegeven; inp='';
+      ltrs=s.ltrs||ltrs; ctr=s.ctr||ctr; gel=s.gel||gel; gev=Array.isArray(s.gev)?s.gev:[]; score=s.score||0; max=s.max||max; opgegeven=!!s.opgegeven; inp='';
       vorigNiv=getNiveau(); return true;
-    }catch(e){return false;}
+    }catch(e){
+      return laadPuzzel(dailyIndex(PUZZELS.length), true);
+    }
   }
-  function wis(){localStorage.removeItem('sw7'); puzzleIndex=-1;}
+  function wis(){ try{ localStorage.removeItem(currentSaveKey()); }catch(e){} puzzleIndex=dailyIndex(PUZZELS.length); }
 
   function geefOp(){ opgegeven = true; save(); }
 
@@ -518,6 +551,7 @@ function renderScore(){
   const gevonden = G.gev.length;
   dom.wordProgressNum.textContent = gevonden + ' van ' + totaal + ' woorden';
   dom.wordProgressLeft.textContent = G.opgegeven ? 'Oplossing getoond' : (gevonden===totaal ? 'Alles gevonden' : 'Nog ' + (totaal-gevonden) + ' te vinden');
+  dom.dailyLabel.textContent = 'Dagpuzzel · ' + formatDailyLabel();
   dom.btnGiveup.disabled = G.opgegeven;
   dom.btnGiveup.textContent = G.opgegeven ? 'Oplossing bekeken' : 'Ik geef het op';
   while (dom.levelDots.firstChild) dom.levelDots.removeChild(dom.levelDots.firstChild);
@@ -618,6 +652,85 @@ function buildHelpContent(){
 }
 
 
+function shareScoreText(){
+  const date = new Date(todayId() + 'T00:00:00').toLocaleDateString('nl-NL', { day:'2-digit', month:'2-digit', year:'numeric' });
+  const gevonden = G.gev.length;
+  const totaal = G.gel.length;
+  const scoreLine = `${gevonden}/${totaal} woorden · ${G.score} punten`;
+  const ratio = totaal ? gevonden / totaal : 0;
+  const filled = Math.max(0, Math.min(8, Math.round(ratio * 8)));
+  const bar = '🟨'.repeat(filled) + '⬜'.repeat(8-filled);
+  const status = G.opgegeven ? 'Opgave bekeken' : (gevonden===totaal ? 'Alles gevonden' : G.getNiveau().n);
+  return `Spelwijze ${date}\n${scoreLine}\n${status}\n${bar}\n${location.href}`;
+}
+async function copyShareText(){
+  const txt = shareScoreText();
+  try{
+    if(navigator.clipboard?.writeText){
+      await navigator.clipboard.writeText(txt);
+      toast('Scorekaart gekopieerd.','ok');
+      return true;
+    }
+  }catch(e){}
+  try{
+    const ta=document.createElement('textarea');
+    ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    toast('Scorekaart gekopieerd.','ok');
+    return true;
+  }catch(e){
+    toast('Kopiëren lukt hier niet automatisch.','warn');
+    return false;
+  }
+}
+function openShareUrl(url){
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+async function shareWhatsApp(){
+  openShareUrl('https://wa.me/?text=' + encodeURIComponent(shareScoreText()));
+}
+async function shareX(){
+  openShareUrl('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareScoreText()));
+}
+async function shareInstagram(){
+  await copyShareText();
+  openModal('Instagram', ()=>{
+    const frag=document.createDocumentFragment();
+    frag.appendChild(makeEl('p','Instagram ondersteunt geen directe tekstshare vanuit een gewone webpagina.'));
+    frag.appendChild(makeEl('p','Je scorekaart is wel gekopieerd, zodat je die in een post, story of DM kunt plakken.'));
+    return frag;
+  }, [{t:'Sluiten',p:true}]);
+}
+async function shareNative(){
+  const payload={title:'Spelwijze', text:shareScoreText(), url:location.href};
+  if(navigator.share){
+    try{ await navigator.share(payload); }catch(e){}
+  } else {
+    await copyShareText();
+  }
+}
+function buildShareContent(){
+  const frag=document.createDocumentFragment();
+  frag.appendChild(makeEl('p','Deel je scorekaart of kopieer hem eerst.'));
+  const pre=makeEl('div', shareScoreText());
+  pre.id='share-preview';
+  frag.appendChild(pre);
+  const note=makeEl('p','WhatsApp en X openen in een nieuw venster. Instagram kan niet rechtstreeks tekst ontvangen vanuit deze pagina, daarom kopieert die knop alleen de scorekaart.', null);
+  note.id='share-note';
+  frag.appendChild(note);
+  return frag;
+}
+function openShare(){
+  const btns = [
+    {t:'📋 Kopieer',f:()=>{copyShareText();}},
+    {t:'🟢 WhatsApp',f:()=>{shareWhatsApp();}},
+    {t:'✕ X',f:()=>{shareX();}},
+    {t:'📸 Instagram',f:()=>{shareInstagram();}},
+  ];
+  if(navigator.share) btns.unshift({t:'↗ Delen',f:()=>{shareNative();}});
+  btns.push({t:'Sluiten',p:true});
+  openModal('Score delen', buildShareContent, btns);
+}
+
 function buildSolutionContent(){
   const frag=document.createDocumentFragment();
   const gevondenSet = new Set(G.gev);
@@ -691,11 +804,12 @@ function openHelp(){
   openModal('Spelregels', buildHelpContent, [{t:'Spelen',p:true}]);
 }
 function confirmNew(){
-  openModal('Nieuw spel?', ()=>{
+  openModal('Opnieuw beginnen?', ()=>{
     const frag=document.createDocumentFragment();
+    frag.appendChild(makeEl('p','Je begint opnieuw met de dagpuzzel van vandaag.'));
     frag.appendChild(makeEl('p','Huidige voortgang gaat verloren.'));
     return frag;
-  }, [{t:'Annuleren'},{t:'Ja, nieuw spel',p:true,f:startNew}]);
+  }, [{t:'Annuleren'},{t:'Ja, opnieuw beginnen',p:true,f:startNew}]);
 }
 
 function startNew(){
@@ -703,7 +817,7 @@ function startNew(){
   G.wis();
   dom.loader.classList.remove('gone');
   dom.loader.setAttribute('aria-busy','true');
-  dom.loaderMsg.textContent='Spel genereren…';
+  dom.loaderMsg.textContent='Dagpuzzel laden…';
   setTimeout(()=>{
     if(!G.genereer()){
       dom.loaderMsg.textContent='Fout. Herlaad de pagina.';
@@ -718,6 +832,7 @@ function startNew(){
 
 function bindEvents(){
   dom.btnHelp.addEventListener('click', openHelp);
+  dom.btnShare.addEventListener('click', openShare);
   dom.btnGiveup.addEventListener('click', geefOp);
   dom.btnNew.addEventListener('click', confirmNew);
   dom.btnDel.addEventListener('click', ()=>G.del());
@@ -762,8 +877,8 @@ function cacheDom(){
     loader:$('loader'), loaderMsg:$('loader-msg'),
     levelUp:$('level-up-banner'), levelUpEmoji:$('lu-emoji'), levelUpName:$('lu-name'),
     modalOverlay:$('modal-overlay'), modal:$('modal'), modalTitle:$('modal-h'), modalBody:$('modal-b'), modalBtns:$('modal-btns'),
-    btnHelp:$('btn-help'), btnGiveup:$('btn-giveup'), btnNew:$('btn-new'), btnDel:$('btn-del'), btnShuffle:$('btn-shuffle'), btnSubmit:$('btn-submit'),
-    scoreNum:$('score-num'), levelName:$('level-name'), nextHint:$('next-hint'), wordProgressNum:$('word-progress-num'), wordProgressLeft:$('word-progress-left'), progressFill:$('progress-fill'), levelDots:$('level-dots'),
+    btnHelp:$('btn-help'), btnShare:$('btn-share'), btnGiveup:$('btn-giveup'), btnNew:$('btn-new'), btnDel:$('btn-del'), btnShuffle:$('btn-shuffle'), btnSubmit:$('btn-submit'),
+    scoreNum:$('score-num'), levelName:$('level-name'), nextHint:$('next-hint'), wordProgressNum:$('word-progress-num'), wordProgressLeft:$('word-progress-left'), dailyLabel:$('daily-label'), progressFill:$('progress-fill'), levelDots:$('level-dots'),
     inputArea:$('input-area'), inputLetters:$('input-letters'), feedback:$('fb-text'), hcSvg:$('hc-svg'),
     foundCount:$('found-count'), foundWords:$('found-words')
   });
@@ -772,7 +887,7 @@ function cacheDom(){
 (function init(){
   cacheDom();
   bindEvents();
-  dom.loaderMsg.textContent='Puzzelpool laden…';
+  dom.loaderMsg.textContent='Dagpuzzel voorbereiden…';
   setTimeout(()=>{
     dom.loaderMsg.textContent=PUZZELS.length.toLocaleString('nl-NL')+' puzzels geladen';
     setTimeout(()=>{
