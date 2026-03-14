@@ -208,6 +208,20 @@ header,.btn-ghost,#score-area,#found-panel,#daily-label,#word-progress,#share-pr
   #input-letters{font-size:2rem}
 }
 </style>
+
+<style id="shuffle-polish">
+/* stronger shuffle animation */
+.hc-letter {
+    transition: transform .25s ease, background-color .2s ease;
+}
+.hc-letter.shuffle {
+    transform: translateY(-6px) rotate(8deg) scale(1.05);
+}
+.hc-letter.shuffle2 {
+    transform: translateY(6px) rotate(-8deg) scale(1.05);
+}
+</style>
+
 </head>
 <body>
 <div id="loader" aria-live="polite" aria-busy="true"><div class="loader-hex" aria-hidden="true"></div><div id="loader-msg">Woordenlijst laden…</div></div>
@@ -1260,5 +1274,25 @@ const PUZZELS=[{"p":"bĳziend","c":"i","w":["bediend","bediende","bedienen","bei
 
 initApp();
 </script>
+
+<script id="shuffle-polish-js">
+function animateShuffle(){
+  const letters=document.querySelectorAll('.hc-letter');
+  letters.forEach((el,i)=>{
+    el.classList.add(i%2?'shuffle':'shuffle2');
+  });
+  setTimeout(()=>{
+    letters.forEach(el=>{
+      el.classList.remove('shuffle','shuffle2');
+    });
+  },260);
+}
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'){
+    animateShuffle();
+  }
+});
+</script>
+
 </body>
 </html>
