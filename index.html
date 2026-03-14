@@ -86,9 +86,11 @@ header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:spac
 #fb-text{font-size:14px;font-weight:600;opacity:0;transform:translateY(4px) scale(.96);transition:opacity .13s,transform .13s;letter-spacing:0.2px}
 #fb-text.show{opacity:1;transform:translateY(0) scale(1)}
 #fb-text.ok{color:var(--ok)}#fb-text.pangram{color:var(--pangram);font-size:16px}#fb-text.error{color:var(--err)}#fb-text.warn{color:var(--warn)}
-#hc-wrap{width:286px;height:262px;margin:2px 0 6px;filter:drop-shadow(0 6px 18px rgba(44,31,14,0.10))}
-#hc-svg{width:100%;height:100%;overflow:visible}
-.hx{cursor:pointer}.hx-bg{transition:fill .12s,filter .12s;transform-origin:50% 50%;transform-box:fill-box}
+#hc-wrap{width:286px;height:262px;margin:2px 0 6px;filter:drop-shadow(0 6px 18px rgba(44,31,14,0.10));user-select:none;-webkit-user-select:none}
+#hc-svg{width:100%;height:100%;overflow:visible;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.hx{cursor:pointer;touch-action:manipulation}
+.hx-hit{fill:rgba(255,255,255,0.001);pointer-events:all}
+.hx-bg{transition:fill .12s,filter .12s;transform-origin:50% 50%;transform-box:fill-box}
 .hx-bg.outer{fill:var(--hex-fill)}.hx-bg.center{fill:var(--amber)}
 .hx{filter:drop-shadow(0 2px 4px rgba(44,31,14,0.10))}
 .hx:hover .hx-bg.outer{fill:var(--hex-hover)}
@@ -874,6 +876,10 @@ function buildHC(){
     const toonLtr = toonTekst(ltr).toUpperCase();
     g.setAttribute('aria-label', 'Letter ' + toonLtr + (ic ? ', verplichte middenletter' : ''));
 
+    const hit=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    hit.setAttribute('cx',cx); hit.setAttribute('cy',cy); hit.setAttribute('r', ic ? 34 : 32);
+    hit.classList.add('hx-hit');
+
     const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
     poly.setAttribute('points',hexPts(cx,cy,r)); poly.classList.add('hx-bg',ic?'center':'outer');
     const ring=document.createElementNS('http://www.w3.org/2000/svg','circle');
@@ -883,13 +889,14 @@ function buildHC(){
     txt.classList.add('hx-ltr',ic?'center':'outer');
     txt.textContent = toonLtr;
     txt.style.fontSize = (toonLtr === 'IJ') ? '16px' : '21px';
-    g.append(poly, ring, txt);
+    g.append(hit, poly, ring, txt);
     const activate = ()=>{
       G.add(ltr);
       poly.style.transform='scale(.90)'; poly.style.transition='transform .08s';
       setTimeout(()=>{poly.style.transform='';poly.style.transition='';},120);
       ring.classList.remove('pop'); void ring.offsetWidth; ring.classList.add('pop');
     };
+    g.addEventListener('pointerup', e=>{ e.preventDefault(); activate(); });
     g.addEventListener('click', activate);
     g.addEventListener('keydown', e=>{
       if(e.key==='Enter' || e.key===' '){ e.preventDefault(); activate(); }
@@ -1390,6 +1397,42 @@ function heeftMooiLangWoord(p){
   if(preferred.length >= 300){
     PUZZELS.length = 0;
     PUZZELS.push(...preferred);
+  }
+})();
+
+const LEXICON_WHITELIST = ['snus','sneuneus','urennorm','user','mussen'];
+const LEXICON_BLACKLIST = ['nurse','usermenu'];
+
+(function curateLexicon(){
+  const wl = new Set(LEXICON_WHITELIST.map(w=>normaliseer(w)));
+  const bl = new Set(LEXICON_BLACKLIST.map(w=>normaliseer(w)));
+  for (const p of PUZZELS) {
+    const allowedLetters = new Set([...new Set(normaliseer(p.p))]);
+    const center = normaliseer(p.c);
+    const next = [];
+    const seen = new Set();
+
+    const canFit = (word) => {
+      if (!word || word.length < 4) return false;
+      if (!word.includes(center)) return false;
+      for (const ch of word) if (!allowedLetters.has(ch)) return false;
+      return true;
+    };
+
+    for (const raw of p.w) {
+      const w = normaliseer(raw);
+      if (bl.has(w)) continue;
+      if (!seen.has(w)) { next.push(w); seen.add(w); }
+    }
+
+    for (const raw of wl) {
+      if (seen.has(raw)) continue;
+      if (!canFit(raw)) continue;
+      next.push(raw);
+      seen.add(raw);
+    }
+
+    p.w = next.sort((a,b)=>a.localeCompare(b,'nl'));
   }
 })();
 initApp();
