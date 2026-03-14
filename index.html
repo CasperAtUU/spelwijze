@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
 <title>Spelwijze 🐝</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -250,6 +250,33 @@ header,.btn-ghost,#score-area,#found-panel,#daily-label,#word-progress,#share-pr
   }
   #btn-del{
     min-width: 148px;
+  }
+}
+
+
+/* iPad touch refinement */
+button, .btn, .hx, .hc-letter, #hc-svg, #hc-svg *{
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+#controls .btn{
+  min-height: 52px;
+  font-size: 16px;
+}
+#btn-del{
+  min-width: 156px;
+  padding-inline: 18px;
+}
+@media (pointer: coarse){
+  .hx, .hc-letter{ cursor: pointer; }
+  #controls .btn{
+    min-height: 58px;
+    padding: 14px 18px;
+  }
+  #btn-del{
+    min-width: 170px;
   }
 }
 
@@ -1481,20 +1508,19 @@ document.addEventListener('keydown',e=>{
 </script>
 
 
-<script id="ipad-touch-fix">
+
+
+<script id="touch-anti-zoom">
 document.addEventListener('DOMContentLoaded', () => {
-  const del = document.getElementById('btn-del');
-  if (del) {
-    let lastPointerTs = 0;
-    del.addEventListener('pointerup', (e) => {
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    const isInteractive = e.target.closest('button, #hc-svg, .hx, .hc-letter');
+    if (isInteractive && (now - lastTouchEnd) < 350) {
       e.preventDefault();
-      lastPointerTs = Date.now();
-      del.click();
-    });
-    del.addEventListener('click', (e) => {
-      if (Date.now() - lastPointerTs < 80) return;
-    }, true);
-  }
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
 });
 </script>
 
