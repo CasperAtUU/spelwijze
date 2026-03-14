@@ -229,6 +229,30 @@ header,.btn-ghost,#score-area,#found-panel,#daily-label,#word-progress,#share-pr
 .hx.animating.move .hx-bg{ transition: transform .34s cubic-bezier(.22,.9,.24,1.02); }
 .hx.animating.move .hx-ring{ transition: transform .34s cubic-bezier(.22,.9,.24,1.02), opacity .18s ease; }
 
+
+/* touch fixes */
+#hc-svg, #hc-svg * { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+#controls .btn{
+  min-height: 48px;
+  padding: 12px 16px;
+}
+#btn-del{
+  min-width: 132px;
+  font-size: 1rem;
+}
+#btn-shuffle, #btn-submit{
+  min-width: 64px;
+}
+@media (pointer: coarse){
+  #controls .btn{
+    min-height: 54px;
+    padding: 14px 18px;
+  }
+  #btn-del{
+    min-width: 148px;
+  }
+}
+
 </style>
 
 <style id="shuffle-polish">
@@ -897,7 +921,6 @@ function buildHC(){
       ring.classList.remove('pop'); void ring.offsetWidth; ring.classList.add('pop');
     };
     g.addEventListener('pointerup', e=>{ e.preventDefault(); activate(); });
-    g.addEventListener('click', activate);
     g.addEventListener('keydown', e=>{
       if(e.key==='Enter' || e.key===' '){ e.preventDefault(); activate(); }
     });
@@ -1453,6 +1476,24 @@ function animateShuffle(){
 document.addEventListener('keydown',e=>{
   if(e.code==='Space'){
     animateShuffle();
+  }
+});
+</script>
+
+
+<script id="ipad-touch-fix">
+document.addEventListener('DOMContentLoaded', () => {
+  const del = document.getElementById('btn-del');
+  if (del) {
+    let lastPointerTs = 0;
+    del.addEventListener('pointerup', (e) => {
+      e.preventDefault();
+      lastPointerTs = Date.now();
+      del.click();
+    });
+    del.addEventListener('click', (e) => {
+      if (Date.now() - lastPointerTs < 80) return;
+    }, true);
   }
 });
 </script>
